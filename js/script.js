@@ -1,7 +1,10 @@
+// ✅ DOM references
 const dice_icon = document.getElementById('dice-icon');
 const rollDice = document.getElementById('rollDice');
 const board = document.getElementById('board');
+const playerNameDisplay = document.getElementById('playerName');
 
+// ✅ Dice icons
 const diceIcons = [
   '<i class="fas fa-dice-one"></i>',
   '<i class="fas fa-dice-two"></i>',
@@ -11,6 +14,7 @@ const diceIcons = [
   '<i class="fas fa-dice-six"></i>'
 ];
 
+// ✅ Snakes and ladders
 const snakes = {
   17: 7, 54: 34, 62: 19, 64: 60,
   87: 24, 93: 73, 95: 75, 98: 79
@@ -21,8 +25,8 @@ const ladders = {
   28: 84, 51: 67, 71: 91, 80: 100
 };
 
+// ✅ Load players
 const storedPlayers = JSON.parse(localStorage.getItem("players")) || [];
-
 const players = storedPlayers.map(player => ({
   ...player,
   id: `player-${player.color}`,
@@ -31,6 +35,7 @@ const players = storedPlayers.map(player => ({
   unlocked: false
 }));
 
+// ✅ Hide unused tokens
 ["red", "blue", "yellow", "green"].forEach(color => {
   const token = document.getElementById(`player-${color}`);
   if (!players.find(p => p.color === color)) {
@@ -38,9 +43,9 @@ const players = storedPlayers.map(player => ({
   }
 });
 
-
 let currentPlayerIndex = 0;
 
+// ✅ Board grid
 function addNumberInBoxes() {
   for (let row = 9; row >= 0; row--) {
     const isEven = row % 2 === 0;
@@ -54,10 +59,10 @@ function addNumberInBoxes() {
 }
 addNumberInBoxes();
 
+// ✅ Move player on board
 function movePlayer(player) {
   const cells = document.querySelectorAll('.board div');
   const position = player.position;
-
   if (position < 1 || position > 100) return;
 
   const row = 9 - Math.floor((position - 1) / 10);
@@ -76,82 +81,110 @@ function movePlayer(player) {
   token.style.top = `${cellRect.top - boardRect.top + 5}px`;
 }
 
-function rollDiceFunction() {
-  rollDice.addEventListener('click', async () => {
-    const diceRoll = Math.floor(Math.random() * 6); // 0–5
-    const steps = diceRoll + 1; // 1–6
-    dice_icon.innerHTML = diceIcons[diceRoll];
-
-    const currentPlayer = players[currentPlayerIndex];
-
-    if (!currentPlayer.unlocked) {
-      if (steps === 6) {
-        currentPlayer.unlocked = true;
-      } else {
-        currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
-        return;
-      }
-    }
-
-    // Step-by-step movement
-    for (let i = 0; i < steps; i++) {
-      if (currentPlayer.position < 100) {
-        currentPlayer.position++;
-        movePlayer(currentPlayer);
-        await delay(300); // wait 300ms per step
-      }
-    }
-
-    // Check for ladders or snakes
-    if (ladders[currentPlayer.position]) {
-      await delay(300);
-      currentPlayer.position = ladders[currentPlayer.position];
-      movePlayer(currentPlayer);
-    } else if (snakes[currentPlayer.position]) {
-      await delay(300);
-      currentPlayer.position = snakes[currentPlayer.position];
-      movePlayer(currentPlayer);
-    }
-
-    // Check collision with other players
-    const otherPlayers = players.filter((p, idx) => idx !== currentPlayerIndex);
-    const sameCell = otherPlayers.find(p => p.position === currentPlayer.position);
-    if (sameCell) {
-      alert(`${currentPlayer.name || currentPlayer.id} landed on ${sameCell.name || sameCell.id}. Sending them back to START!`);
-      sameCell.position = 1;
-      movePlayer(sameCell);
-    }
-
-    // Check for win
-    if (currentPlayer.position === 100) {
-      setTimeout(() => {
-        alert(`${currentPlayer.name || currentPlayer.id} wins!`);
-        // Optional: mark player as done & continue game
-      }, 300);
-      return;
-    }
-
-    currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
-  });
-
-  currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
-  botTurn(); 
-
-
+// ✅ Dice animation
+async function animateDice() {
+  for (let i = 0; i < 8; i++) {
+    const random = Math.floor(Math.random() * 6);
+    dice_icon.innerHTML = diceIcons[random];
+    await delay(100);
+  }
 }
 
-rollDiceFunction();
-
-function botTurn() {
-  const bot = players[currentPlayerIndex];
-  if (!bot.isBot) return;
-
-  setTimeout(() => {
-    rollDice.click();
-  }, 1000);
-}
-
-
+// ✅ Delay helper
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+// ✅ Play one turn
+async function playTurn() {
+  rollDice.disabled = true;
+
+  const currentPlayer = players[currentPlayerIndex];
+  playerNameDisplay.textContent = `${currentPlayer.name || currentPlayer.id}'s Turn`;
+
+  await animateDice();
+  const diceRoll = Math.floor(Math.random() * 6);
+  const steps = diceRoll + 1;
+  dice_icon.innerHTML = diceIcons[diceRoll];
+
+  if (!currentPlayer.unlocked) {
+    if (steps === 6) {
+      currentPlayer.unlocked = true;
+    } else {
+      nextPlayer();
+      return;
+    }
+  }
+
+  for (let i = 0; i < steps; i++) {
+    if (currentPlayer.position < 100) {
+      currentPlayer.position++;
+      movePlayer(currentPlayer);
+      await delay(300);
+    }
+  }
+
+  if (ladders[currentPlayer.position]) {
+    await delay(300);
+    currentPlayer.position = ladders[currentPlayer.position];
+    movePlayer(currentPlayer);
+  } else if (snakes[currentPlayer.position]) {
+    await delay(300);
+    currentPlayer.position = snakes[currentPlayer.position];
+    movePlayer(currentPlayer);
+  }
+
+  const others = players.filter((p, i) => i !== currentPlayerIndex);
+  const hit = others.find(p => p.position === currentPlayer.position);
+  if (hit) {
+    alert(`${currentPlayer.name || currentPlayer.id} hit ${hit.name || hit.id}. Sending them home.`);
+    hit.position = 1;
+    movePlayer(hit);
+  }
+
+  if (currentPlayer.position === 100) {
+    alert(`${currentPlayer.name || currentPlayer.id} wins!`);
+    return;
+  }
+
+  if (steps === 6) {
+    if (currentPlayer.isBot) {
+      await delay(1000);
+      playTurn();
+    } else {
+      rollDice.disabled = false;
+    }
+    return;
+  }
+
+  nextPlayer();
+}
+
+// ✅ Go to next player
+function nextPlayer() {
+  currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+
+  const nextPlayer = players[currentPlayerIndex];
+  playerNameDisplay.textContent = `${nextPlayer.name || nextPlayer.id}'s Turn`;
+
+  if (nextPlayer.isBot) {
+    setTimeout(() => playTurn(), 1000);
+  } else {
+    rollDice.disabled = false;
+  }
+}
+
+// ✅ Bind roll button
+function rollDiceFunction() {
+  rollDice.addEventListener('click', () => playTurn());
+}
+rollDiceFunction();
+
+// ✅ Auto-start bot if first
+window.onload = () => {
+  if (players[currentPlayerIndex].isBot) {
+    setTimeout(() => playTurn(), 1000);
+  } else {
+    playerNameDisplay.textContent = `${players[currentPlayerIndex].name || players[currentPlayerIndex].id}'s Turn`;
+  }
+};

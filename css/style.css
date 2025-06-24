@@ -18,6 +18,14 @@ body {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+.player-name-display {
+  font-size: 18px;
+  font-weight: bold;
+  color: #444;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
 .rollDice {
   display: flex;
   flex-direction: column;
@@ -25,7 +33,7 @@ body {
   align-items: center;
   margin-bottom: 20px;
   width: 200px;
-  height: 200px;
+  height: 250px;
   background: #f4f4f4;
   padding: 10px;
   border-radius: 10px;
