@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Select Players</title>
+  <link rel="stylesheet" href="css/select-players.css" />
+</head>
+<body>
+
+  <div class="container">
+    <h1>Select Number of Players</h1>
+
+    <div class="player-options">
+      <label>
+        <input type="radio" name="playerCount" value="2" checked />
+        2 Players
+      </label>
+      <label>
+        <input type="radio" name="playerCount" value="3" />
+        3 Players
+      </label>
+      <label>
+        <input type="radio" name="playerCount" value="4" />
+        4 Players
+      </label>
+    </div>
+
+    <button class="next-btn" onclick="goToCustomizePage()">Next</button>
+  </div>
+
+  <script src="js/select-players.js"></script>
+</body>
+</html>
