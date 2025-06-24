@@ -8,25 +8,11 @@
 </head>
 <body>
 
-  <div class="container">
-    <h1>Select Number of Players</h1>
-
-    <div class="player-options">
-      <label>
-        <input type="radio" name="playerCount" value="2" checked />
-        2 Players
-      </label>
-      <label>
-        <input type="radio" name="playerCount" value="3" />
-        3 Players
-      </label>
-      <label>
-        <input type="radio" name="playerCount" value="4" />
-        4 Players
-      </label>
-    </div>
-
-    <button class="next-btn" onclick="goToCustomizePage()">Next</button>
+  <div class="game-container">
+    <button class="player-button" id="single-player" onclick="goToCustomizePage(1)" title="Single Player"></button>
+    <button class="player-button" id="two-player" onclick="goToCustomizePage(2)" title="2 Players"></button>
+    <button class="player-button" id="three-player" onclick="goToCustomizePage(3)" title="3 Players"></button>
+    <button class="player-button" id="four-player" onclick="goToCustomizePage(4)" title="4 Players"></button>
   </div>
 
   <script src="js/select-players.js"></script>

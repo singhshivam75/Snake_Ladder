@@ -5,13 +5,16 @@
 }
 
 body {
-  background: linear-gradient(to right, #f6d365, #fda085);
+  background: url(/assets/bg-image1.webp) no-repeat center center;
+  background-size: cover;
   height: 100vh;
+  margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: "Arial", sans-serif;
 }
+
 
 .container {
   display: flex;

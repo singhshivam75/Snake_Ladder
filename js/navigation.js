@@ -1,3 +1,3 @@
 function goToPlayerSelection() {
-  window.location.href = "mode-select.html";
+  window.location.href = "select-players.html";
 }

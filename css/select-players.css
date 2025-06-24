@@ -1,53 +1,32 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
 
-body {
-  background: linear-gradient(to right, #89f7fe, #66a6ff);
-  height: 100vh;
-  font-family: 'Arial', sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+    .game-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      background: url('/assets/bg-image2.webp') no-repeat center center/cover;
+    }
 
-.container {
-  text-align: center;
-  background: white;
-  padding: 40px;
-  border-radius: 15px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
+    .player-button {
+      position: absolute;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.05);
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
 
-h1 {
-  margin-bottom: 30px;
-}
+    .player-button:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
 
-.player-options {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-bottom: 30px;
-  font-size: 18px;
-}
-
-label {
-  cursor: pointer;
-}
-
-.next-btn {
-  padding: 10px 30px;
-  font-size: 18px;
-  border: none;
-  border-radius: 10px;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.next-btn:hover {
-  background-color: #0056b3;
-}
+    #single-player { top: 41.3%; left: 71.9%; }
+    #two-player    { top: 66%; left: 60.5%; }
+    #three-player  { top: 66%; left: 71.9%; }
+    #four-player   { top: 66%; left: 83.2%; }

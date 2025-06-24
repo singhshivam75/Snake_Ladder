@@ -1,19 +1,15 @@
-function goToCustomizePage() {
-  const playerCount = document.querySelector('input[name="playerCount"]:checked').value;
-
-  if (parseInt(playerCount) === 1) {
-    const withBot = confirm("You selected 1 player. Do you want to play with the bot?");
-    if (withBot) {
-      localStorage.setItem("playWithBot", "true");
-      localStorage.setItem("playerCount", "2"); // force setup for 2
-    } else {
-      alert("Please select at least 2 players to continue.");
-      return;
+    function goToCustomizePage(playerCount) {
+      if (parseInt(playerCount) === 1) {
+        // Auto-assign bot and jump to game page directly
+        const players = [
+          { name: "Player 1", color: "red", isBot: false },
+          { name: "Bot", color: "blue", isBot: true }
+        ];
+        localStorage.setItem("players", JSON.stringify(players));
+        window.location.href = "index.html";
+      } else {
+        localStorage.setItem('playWithBot', 'false');
+        localStorage.setItem('playerCount', playerCount);
+        window.location.href = 'player-setup.html';
+      }
     }
-  } else {
-    localStorage.setItem("playWithBot", "false");
-    localStorage.setItem("playerCount", playerCount);
-  }
-
-  window.location.href = "player-setup.html";
-}

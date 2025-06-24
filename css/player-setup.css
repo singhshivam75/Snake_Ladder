@@ -1,62 +1,77 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
 
-body {
-  background: linear-gradient(to right, #fbc2eb, #a6c1ee);
-  font-family: 'Arial', sans-serif;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-.container {
-  background: white;
-  padding: 40px;
-  border-radius: 15px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-  width: 90%;
-  max-width: 500px;
-  text-align: center;
-}
+    body {
+      background: url(/assets/bg-image3.jpg) no-repeat center center;
+      background-size: cover;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Arial", sans-serif;
+      color: #fff;
+    }
 
-h1 {
-  margin-bottom: 30px;
-}
+    .container {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 800px;
+      text-align: center;
+    }
 
-.player-block {
-  margin-bottom: 20px;
-  text-align: left;
-}
+    h1 {
+      margin-bottom: 30px;
+    }
 
-label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
+    #playerInputs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 20px;
+    }
 
-input[type="text"], select {
-  width: 100%;
-  padding: 8px 10px;
-  margin-bottom: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
+    .player-block {
+      flex: 1 1 45%;
+      min-width: 200px;
+      background-color: rgba(255,255,255,0.2);
+      padding: 15px;
+      border-radius: 10px;
+    }
 
-.start-btn {
-  padding: 12px 30px;
-  font-size: 18px;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
 
-.start-btn:hover {
-  background-color: #388e3c;
-}
+    input[type="text"], select {
+      width: 100%;
+      padding: 8px 10px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .start-btn {
+      margin-top: 20px;
+      padding: 12px 30px;
+      font-size: 18px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .start-btn:hover {
+      background-color: #388e3c;
+    }
