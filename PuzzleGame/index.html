@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Image Swap Puzzle</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Image Swap Puzzle</h1>
+
+  <div id="timer">Time: 0s</div>
+
+  <div id="puzzle"></div>
+
+  <div class="buttons">
+    <button onclick="shuffle()">Shuffle</button>
+    <button onclick="changeImage()">Change Image</button>
+    <button class="how-to-play-btn" onclick="openRules()">How to Play</button>
+  </div>
+
+  <!-- Win Popup -->
+  <div class="popup" id="popup">
+    <button class="close-btn" onclick="closePopup()">×</button>
+    <h2>You Won!</h2>
+    <p id="completionTime"></p>
+    <button onclick="changeImage()">Next Puzzle</button>
+  </div>
+
+  <!-- Rules Popup -->
+  <div id="rulesPopup" class="popup">
+    <div class="popup-content">
+      <button class="close-btn" onclick="closeRules()">×</button>
+      <h2>How to Play</h2>
+      <ul class="rules">
+        <li>The puzzle is made of shuffled image pieces.</li>
+        <li>Click and drag a piece onto another to swap them.</li>
+        <li>Once all pieces are in the correct place, you win!</li>
+        <li>Correctly placed pieces become dim and locked.</li>
+        <li>Click "Shuffle" to restart or "Change Image" for a new puzzle.</li>
+      </ul>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
