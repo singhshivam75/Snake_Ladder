@@ -1,50 +1,51 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  background: url(/assets/bg-image1.webp) no-repeat center center;
+.login-container {
+  background: url("../assets/image.png") no-repeat center center;
   background-size: cover;
   height: 100vh;
   margin: 0;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: flex-start; /* Align form to the left */
   font-family: "Arial", sans-serif;
+  padding-left: 5%;
 }
 
+/* Form styling */
+.form-side {
+  background-color: rgba(255, 255, 255, 0.9); /* Slight transparent background */
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  width: 350px;
+}
 
-.container {
+.form-side form {
   display: flex;
   flex-direction: column;
+  gap: 15px;
 }
 
-.logo {
-  width: 700px;
-  margin-bottom: 40px;
-  transition: transform 0.2s, background-color 0.3s;
+.form-side input {
+  padding: 10px;
+  font-size: 16px;
 }
 
-.logo:hover {
-  transform: scale(1.05);
-}
-
-.start-btn {
-  margin: 0 auto;
-  width: 300px;
-  font-size: 35px;
-  padding: 20px 10px;
-  background-color: #4caf50;
+.form-side button {
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: transform 0.2s, background-color 0.3s;
+  border-radius: 4px;
 }
 
-.start-btn:hover {
-  background-color: #347838;
-  transform: scale(1.05);
+.form-side span {
+  font-size: 14px;
+}
+
+.form-side a {
+  color: #007bff;
+  text-decoration: none;
+  margin-left: 5px;
 }

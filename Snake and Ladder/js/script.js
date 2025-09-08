@@ -1,10 +1,8 @@
-// ✅ DOM references
 const dice_icon = document.getElementById('dice-icon');
 const rollDice = document.getElementById('rollDice');
 const board = document.getElementById('board');
 const playerNameDisplay = document.getElementById('playerName');
 
-// ✅ Dice icons
 const diceIcons = [
   '<i class="fas fa-dice-one"></i>',
   '<i class="fas fa-dice-two"></i>',
@@ -14,7 +12,6 @@ const diceIcons = [
   '<i class="fas fa-dice-six"></i>'
 ];
 
-// ✅ Snakes and ladders
 const snakes = {
   17: 7, 54: 34, 62: 19, 64: 60,
   87: 24, 93: 73, 95: 75, 98: 79
@@ -25,7 +22,6 @@ const ladders = {
   28: 84, 51: 67, 71: 91, 80: 100
 };
 
-// ✅ Load players
 const storedPlayers = JSON.parse(localStorage.getItem("players")) || [];
 const players = storedPlayers.map(player => ({
   ...player,
@@ -35,7 +31,6 @@ const players = storedPlayers.map(player => ({
   unlocked: false
 }));
 
-// ✅ Hide unused tokens
 ["red", "blue", "yellow", "green"].forEach(color => {
   const token = document.getElementById(`player-${color}`);
   if (!players.find(p => p.color === color)) {
@@ -45,7 +40,6 @@ const players = storedPlayers.map(player => ({
 
 let currentPlayerIndex = 0;
 
-// ✅ Board grid
 function addNumberInBoxes() {
   for (let row = 9; row >= 0; row--) {
     const isEven = row % 2 === 0;
@@ -59,7 +53,6 @@ function addNumberInBoxes() {
 }
 addNumberInBoxes();
 
-// ✅ Move player on board
 function movePlayer(player) {
   const cells = document.querySelectorAll('.board div');
   const position = player.position;
@@ -81,7 +74,6 @@ function movePlayer(player) {
   token.style.top = `${cellRect.top - boardRect.top + 5}px`;
 }
 
-// ✅ Dice animation
 async function animateDice() {
   for (let i = 0; i < 8; i++) {
     const random = Math.floor(Math.random() * 6);
@@ -90,12 +82,10 @@ async function animateDice() {
   }
 }
 
-// ✅ Delay helper
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// ✅ Play one turn
 async function playTurn() {
   rollDice.disabled = true;
 
@@ -160,7 +150,6 @@ async function playTurn() {
   nextPlayer();
 }
 
-// ✅ Go to next player
 function nextPlayer() {
   currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
 
@@ -174,13 +163,11 @@ function nextPlayer() {
   }
 }
 
-// ✅ Bind roll button
 function rollDiceFunction() {
   rollDice.addEventListener('click', () => playTurn());
 }
 rollDiceFunction();
 
-// ✅ Auto-start bot if first
 window.onload = () => {
   if (players[currentPlayerIndex].isBot) {
     setTimeout(() => playTurn(), 1000);
